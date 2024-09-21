@@ -39,10 +39,8 @@ initial begin
     program_mem[9] = 12'b000000000000;
 end
 
-ALU (Arithmetic Logic Unit)
-verilog
+##ALU (Arithmetic Logic Unit)
 
-Copy
 ALU ALU_unit(
     .Operand1(Acc),
     .Operand2(ALU_Oper2),
@@ -53,10 +51,8 @@ ALU ALU_unit(
     .Flags(SR_updated)
 );
 The ALU performs arithmetic and logical operations. It takes two operands (the contents of the Accumulator and another operand), an enable signal, and the mode of operation. The result and status flags are outputted to manage subsequent operations.
-Multiplexers (MUX)
-verilog
+##Multiplexers (MUX)
 
-Copy
 MUX1 MUX2_unit(
     .In2(IR[7:0]),
     .In1(DR),
@@ -64,10 +60,8 @@ MUX1 MUX2_unit(
     .Out(ALU_Oper2)
 );
 The multiplexer selects between two inputs based on the selection signal (Sel). In this case, it chooses between the lower 8 bits of the Instruction Register and the Data Register as input to the ALU.
-Data Memory
-verilog
+##Data Memory
 
-Copy
 DMem DMem_unit(
     .clk(clk),
     .E(DMem_E),
@@ -77,10 +71,8 @@ DMem DMem_unit(
     .DO(DR_updated)
 );
 This module represents the data memory. It includes ports for clock, enable, write enable, address, data input, and data output to manage read and write operations.
-Program Memory
-verilog
+##Program Memory
 
-Copy
 PMem PMem_unit(
     .clk(clk),
     .E(PMem_E),
@@ -91,19 +83,15 @@ PMem PMem_unit(
     .LI(load_instr)
 );
 The program memory module is responsible for storing instructions and loading them into the Instruction Register when needed.
-Program Counter (PC)
-verilog
+##Program Counter (PC)
 
-Copy
 adder PC_Adder_unit(
     .In(PC),
     .Out(Adder_Out)
 );
 The adder updates the Program Counter based on the current instruction execution, facilitating sequential instruction fetching.
-Control Logic
-verilog
+##Control Logic
 
-Copy
 Control_Logic Control_Logic_Unit(
     .stage(current_state),
     .IR(IR),
